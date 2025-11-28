@@ -14,13 +14,9 @@ public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
-
-    // Logic nghiệp vụ Thêm sinh viên (Question 1)
     public Student save(Student student) {
         return studentRepository.save(student);
     }
-
-    // Lấy tất cả sinh viên (Dùng cho form thêm điểm)
     public List<Student> findAll() {
         return studentRepository.findAll();
     }

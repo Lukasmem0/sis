@@ -31,27 +31,18 @@ public class MainController {
 
     @GetMapping("/")
     public String scoreList(Model model) {
-        // Lấy danh sách điểm số (StudentScore)
         List<StudentScore> scores = scoreService.findAllScores();
         model.addAttribute("scores", scores);
         model.addAttribute("scoreService", scoreService);
-        return "score-list"; // Chúng ta sẽ đổi tên score-list.html thành score-list.html
+        return "score-list";
     }
 
-    /**
-     * TRANG 2: /students (Danh sách TẤT CẢ sinh viên - Kể cả chưa có điểm)
-     */
     @GetMapping("/students")
     public String studentList(Model model) {
-        // Lấy danh sách TẤT CẢ sinh viên
         List<Student> students = studentService.findAll();
         model.addAttribute("students", students);
         return "student-only-list"; // Trả về file HTML mới
     }
-
-    /**
-     * QUESTION 1: Insert Student
-     */
     @GetMapping("/student/add")
     public String showStudentForm(Model model) {
         model.addAttribute("student", new Student());
@@ -61,13 +52,9 @@ public class MainController {
     @PostMapping("/student/save")
     public String saveStudent(@ModelAttribute("student") Student student) {
         studentService.save(student);
-        // Chuyển hướng về trang danh sách sinh viên mới
         return "redirect:/students";
     }
 
-    /**
-     * QUESTION 2: Insert Score
-     */
     @GetMapping("/score/add")
     public String showScoreForm(Model model) {
         List<Student> students = studentService.findAll();
@@ -86,7 +73,6 @@ public class MainController {
             @RequestParam("score2") BigDecimal score2) {
 
         scoreService.save(studentId, subjectId, score1, score2);
-        // Chuyển hướng về trang bảng điểm chính (score list)
         return "redirect:/";
     }
 }

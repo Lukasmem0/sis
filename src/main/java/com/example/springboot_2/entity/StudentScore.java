@@ -10,22 +10,22 @@ public class StudentScore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_score_id")
-    private Integer studentScoreId; // student_score_id int auto_increment primary key
+    private Integer studentScoreId;
 
     @Column(name = "score1", precision = 5, scale = 2)
-    private BigDecimal score1; // score1 decimal(5,2)
+    private BigDecimal score1;
 
     @Column(name = "score2", precision = 5, scale = 2)
-    private BigDecimal score2; // score2 decimal(5,2)
+    private BigDecimal score2;
 
     // Mối quan hệ với Student
     @ManyToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "student_id") // student_id int (FK)
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student student;
 
     // Mối quan hệ với Subject
     @ManyToOne
-    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id") // subject_id int (FK)
+    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
     private Subject subject;
 
     // Constructors

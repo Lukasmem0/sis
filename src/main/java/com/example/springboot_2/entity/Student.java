@@ -1,6 +1,7 @@
 package com.example.springboot_2.entity;
 
 import jakarta.persistence.*;
+import org.thymeleaf.model.IText;
 
 @Entity
 @Table(name = "student_t") // Ánh xạ với create table student_t
@@ -11,10 +12,10 @@ public class Student {
     @Column(name = "student_id")
     private Integer studentId; // student_id int auto_increment primary key
 
-    @Column(name = "student_code", nullable = false, length = 20)
+    @Column(name = "student_code", nullable = false, length = 50)
     private String studentCode; // student_code varchar(20) not null
 
-    @Column(name = "full_name", nullable = false, length = 100)
+    @Column(name = "full_name", nullable = false, length = 150)
     private String fullName; // full_name varchar(100) not null
 
     @Column(name = "address", length = 255)

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Danh Sách Sinh Viên</title>
     <style>
-        /* CSS cho Student Information System */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -14,7 +13,7 @@
         }
 
         .header-system {
-            background-color: #28a745; /* Màu xanh lá cây tương tự mẫu */
+            background-color: #28a745;
             color: white;
             padding: 10px 40px;
             font-size: 24px;
@@ -34,7 +33,6 @@
             text-transform: uppercase;
         }
 
-        /* --- Bảng --- */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -60,17 +58,14 @@
             font-size: 1em;
         }
 
-        /* Hiệu ứng di chuột trên dòng */
         tbody tr:hover {
             background-color: #eaf4ff;
         }
 
-        /* Cột cuối cùng (Address) */
         td:nth-child(4) {
             font-weight: 500;
         }
 
-        /* Thao tác (Actions) - Đổi thành nút giống mẫu */
         .actions {
             margin-bottom: 20px;
             padding: 0;
@@ -97,16 +92,16 @@
         }
 
         .actions a.add-student {
-            background-color: #28a745; /* Màu xanh lá cây cho + Student */
+            background-color: #28a745;
         }
 
         .actions a.add-score {
-            background-color: #ffc107; /* Màu vàng cam cho + Score */
+            background-color: #ffc107;
             color: #333;
         }
 
         .actions a.back-to-scores {
-            background-color: #6c757d; /* Màu xám cho Trở về Bảng Điểm */
+            background-color: #6c757d;
         }
 
         .actions a:hover {
@@ -118,7 +113,7 @@
 <body>
 <div class="header-system">Student Information System</div>
 <div class="main-content">
-    <h2>🧑‍🎓 Danh Sách Sinh Viên</h2>
+    <h2>Danh Sách Sinh Viên</h2>
 
     <div class="actions">
         <a th:href="@{/student/add}" class="add-student">+ Thêm Sinh Viên</a>

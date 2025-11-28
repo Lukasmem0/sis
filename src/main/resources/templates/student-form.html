@@ -60,7 +60,7 @@
         }
 
         button[type="submit"] {
-            background-color: #28a745; /* Màu xanh lá cây */
+            background-color: #28a745;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -96,16 +96,11 @@
             margin-top: 20px;
         }
 
-        p[th:if] {
-            text-align: center;
-            margin-top: 10px;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>📝 Thêm Sinh Viên Mới</h2>
+    <h2>Thêm Sinh Viên Mới</h2>
     <p th:if="${param.success}" style="color: green;">Thêm sinh viên thành công!</p>
 
     <form th:action="@{/student/save}" th:object="${student}" method="post">

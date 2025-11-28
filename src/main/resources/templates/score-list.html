@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <title>Bảng Điểm Chi Tiết</title>
     <style>
-        /* CSS cho Student Information System */
         body {
-            font-family: Arial, sans-serif; /* Đổi font sang Arial để gần với mẫu */
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f7f9;
@@ -14,7 +13,7 @@
         }
 
         .header-system {
-            background-color: #28a745; /* Màu xanh lá cây tương tự mẫu */
+            background-color: #28a745;
             color: white;
             padding: 10px 40px;
             font-size: 24px;
@@ -26,7 +25,7 @@
         }
 
         h2 {
-            color: #333; /* Đổi màu chữ h2 cho gần mẫu */
+            color: #333;
             padding-bottom: 10px;
             margin-bottom: 25px;
             font-weight: bold;
@@ -34,97 +33,91 @@
             text-transform: uppercase;
         }
 
-        /* --- Bảng --- */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             background-color: white;
-            border-radius: 4px; /* Giảm độ cong cho gần mẫu */
+            border-radius: 4px;
             overflow: hidden;
-            border: 1px solid #e0e6ed; /* Thêm border ngoài cho bảng */
+            border: 1px solid #e0e6ed;
         }
 
         th, td {
             border: 1px solid #e0e6ed;
-            padding: 10px 15px; /* Giảm padding một chút */
+            padding: 10px 15px;
             text-align: left;
         }
 
         th {
-            background-color: #1a4f78; /* Màu header bảng: Xanh đậm */
+            background-color: #1a4f78;
             color: white;
-            font-weight: normal; /* Đặt lại thành normal */
-            text-transform: none; /* Không uppercase */
+            font-weight: normal;
+            text-transform: none;
             font-size: 1em;
-            text-align: center; /* Căn giữa tiêu đề */
+            text-align: center;
         }
 
-        /* Hiệu ứng di chuột trên dòng */
         tbody tr:hover {
             background-color: #eaf4ff;
         }
 
-        /* Căn giữa cột điểm/credit/grade giống mẫu */
-        td:nth-child(5), /* Score 1 */
-        td:nth-child(6), /* Score 2 */
-        td:nth-child(7), /* Credit */
-        td:nth-child(8), /* Final Score */
-        td:nth-child(9) { /* Grade */
+        td:nth-child(5),
+        td:nth-child(6),
+        td:nth-child(7),
+        td:nth-child(8),
+        td:nth-child(9) {
             text-align: center;
             font-weight: 500;
         }
 
-        /* Thao tác (Actions) - Đổi thành nút giống mẫu */
         .actions {
             margin-bottom: 20px;
-            padding: 0; /* Loại bỏ padding */
-            background-color: transparent; /* Loại bỏ background */
-            border-radius: 0; /* Loại bỏ border-radius */
+            padding: 0;
+            background-color: transparent;
+            border-radius: 0;
             display: flex;
-            gap: 5px; /* Giảm khoảng cách */
+            gap: 5px;
             align-items: center;
         }
 
         .actions a {
             text-decoration: none;
-            padding: 5px 10px; /* Giảm padding */
+            padding: 5px 10px;
             border: none;
-            background-color: #1a4f78; /* Giống màu header */
+            background-color: #1a4f78;
             color: white;
             border-radius: 4px;
             font-weight: 500;
-            font-size: 14px; /* Giảm cỡ chữ */
+            font-size: 16px;
             transition: background-color 0.3s ease;
             display: flex;
             align-items: center;
-            line-height: 1; /* Cố định chiều cao */
+            line-height: 1;
         }
 
         .actions a.add-student {
-            background-color: #28a745; /* Màu xanh lá cây cho + Student */
+            background-color: #28a745;
         }
 
         .actions a.add-score {
-            background-color: #ffc107; /* Màu vàng cam cho + Score */
+            background-color: #ffc107;
             color: #333;
         }
 
         .actions a:hover {
-            filter: brightness(0.9); /* Làm tối khi hover */
+            filter: brightness(0.9);
         }
 
-        /* Màu đặc biệt cho Grade */
         td:nth-child(9) {
             font-weight: bold;
-            color: #007bff; /* Màu xanh dương cho Grade */
+            color: #007bff;
         }
 
-        /* Cột cuối cùng (Actions - Giả lập) */
         td:last-child {
             text-align: center;
-            width: 50px; /* Giới hạn chiều rộng */
+            width: 50px;
         }
         .edit-icon {
             text-decoration: none;
@@ -169,7 +162,7 @@
             <td th:with="avgScore=${scoreService.calculateAvgScore(score.score1, score.score2)}" th:text="${#numbers.formatDecimal(avgScore, 0, 2)}">7.75</td>
             <td th:with="avgScore=${scoreService.calculateAvgScore(score.score1, score.score2)}" th:text="${scoreService.convertToGrade(avgScore)}">A</td>
             <td>
-                <a href="#" class="edit-icon">✏️</a>
+                <a href="#" class="edit-icon"><3-Edit</a>
             </td>
         </tr>
         </tbody>

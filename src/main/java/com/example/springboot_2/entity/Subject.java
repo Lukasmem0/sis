@@ -9,13 +9,13 @@ public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subject_id")
-    private Integer subjectId; // subject_id int auto_increment primary key
+    private Integer subjectId;
 
-    @Column(name = "subject_code", nullable = false, length = 20)
-    private String subjectCode; // subject_code varchar(20) not null
+    @Column(name = "subject_code", nullable = false, length = 50)
+    private String subjectCode;
 
-    @Column(name = "subject_name", nullable = false, length = 100)
-    private String subjectName; // subject_name varchar(100) not null
+    @Column(name = "subject_name", nullable = false, length = 200)
+    private String subjectName;
 
     @Column(name = "credit", nullable = false)
     private Integer credit; // credit int not null

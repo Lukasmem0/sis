@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface StudentScoreRepository extends JpaRepository<StudentScore, Integer> {
-    // Lấy tất cả điểm của một sinh viên (cho Q3)
     List<StudentScore> findByStudent_StudentId(Integer studentId);
 }
