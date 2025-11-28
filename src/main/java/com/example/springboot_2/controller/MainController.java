@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -41,8 +42,9 @@ public class MainController {
     public String studentList(Model model) {
         List<Student> students = studentService.findAll();
         model.addAttribute("students", students);
-        return "student-only-list"; // Trả về file HTML mới
+        return "student-only-list";
     }
+
     @GetMapping("/student/add")
     public String showStudentForm(Model model) {
         model.addAttribute("student", new Student());
@@ -50,8 +52,33 @@ public class MainController {
     }
 
     @PostMapping("/student/save")
-    public String saveStudent(@ModelAttribute("student") Student student) {
-        studentService.save(student);
+    public String saveStudent(@ModelAttribute("student") Student student, RedirectAttributes redirectAttributes) {
+        try {
+            studentService.save(student);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Lỗi: Mã sinh viên (hoặc thông tin) đã tồn tại hoặc không hợp lệ. Vui lòng kiểm tra lại.");
+            return "redirect:/student/add";
+        }
+
+        redirectAttributes.addFlashAttribute("success", "Thêm/cập nhật sinh viên thành công!");
+        return "redirect:/students";
+    }
+
+    // --- Phương thức Xóa Sinh viên ---
+    @GetMapping("/student/delete")
+    public String deleteStudent(@RequestParam("id") Long studentId, RedirectAttributes redirectAttributes) {
+        if (studentId == null) {
+            redirectAttributes.addFlashAttribute("error", "Không tìm thấy ID sinh viên để xóa.");
+            return "redirect:/students";
+        }
+
+        try {
+            studentService.deleteById(studentId);
+            redirectAttributes.addFlashAttribute("success", "Xóa sinh viên thành công!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Lỗi khi xóa sinh viên: Có thể sinh viên này đang có điểm được lưu.");
+        }
+
         return "redirect:/students";
     }
 
@@ -67,12 +94,25 @@ public class MainController {
 
     @PostMapping("/score/save")
     public String saveScore(
-            @RequestParam("studentId") Integer studentId,
-            @RequestParam("subjectId") Integer subjectId,
+            @RequestParam("studentId") Long studentId,
+            @RequestParam("subjectId") Long subjectId,
             @RequestParam("score1") BigDecimal score1,
-            @RequestParam("score2") BigDecimal score2) {
+            @RequestParam("score2") BigDecimal score2,
+            RedirectAttributes redirectAttributes) {
 
-        scoreService.save(studentId, subjectId, score1, score2);
+        if (studentId == null || subjectId == null || score1 == null || score2 == null) {
+            redirectAttributes.addFlashAttribute("error", "Vui lòng chọn Sinh viên, Môn học và nhập đầy đủ cả hai điểm.");
+            return "redirect:/score/add";
+        }
+
+        try {
+            scoreService.save(studentId.intValue(), subjectId.intValue(), score1, score2);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Lỗi khi lưu điểm: " + e.getMessage());
+            return "redirect:/score/add";
+        }
+
+        redirectAttributes.addFlashAttribute("success", "Nhập điểm thành công!");
         return "redirect:/";
     }
 }
