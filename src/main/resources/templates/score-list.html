@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bảng Điểm Chi Tiết</title>
+    <style>
+        /* CSS cho Student Information System */
+        body {
+            font-family: Arial, sans-serif; /* Đổi font sang Arial để gần với mẫu */
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+
+        .header-system {
+            background-color: #28a745; /* Màu xanh lá cây tương tự mẫu */
+            color: white;
+            padding: 10px 40px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .main-content {
+            margin: 40px;
+        }
+
+        h2 {
+            color: #333; /* Đổi màu chữ h2 cho gần mẫu */
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-weight: bold;
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+
+        /* --- Bảng --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 4px; /* Giảm độ cong cho gần mẫu */
+            overflow: hidden;
+            border: 1px solid #e0e6ed; /* Thêm border ngoài cho bảng */
+        }
+
+        th, td {
+            border: 1px solid #e0e6ed;
+            padding: 10px 15px; /* Giảm padding một chút */
+            text-align: left;
+        }
+
+        th {
+            background-color: #1a4f78; /* Màu header bảng: Xanh đậm */
+            color: white;
+            font-weight: normal; /* Đặt lại thành normal */
+            text-transform: none; /* Không uppercase */
+            font-size: 1em;
+            text-align: center; /* Căn giữa tiêu đề */
+        }
+
+        /* Hiệu ứng di chuột trên dòng */
+        tbody tr:hover {
+            background-color: #eaf4ff;
+        }
+
+        /* Căn giữa cột điểm/credit/grade giống mẫu */
+        td:nth-child(5), /* Score 1 */
+        td:nth-child(6), /* Score 2 */
+        td:nth-child(7), /* Credit */
+        td:nth-child(8), /* Final Score */
+        td:nth-child(9) { /* Grade */
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Thao tác (Actions) - Đổi thành nút giống mẫu */
+        .actions {
+            margin-bottom: 20px;
+            padding: 0; /* Loại bỏ padding */
+            background-color: transparent; /* Loại bỏ background */
+            border-radius: 0; /* Loại bỏ border-radius */
+            display: flex;
+            gap: 5px; /* Giảm khoảng cách */
+            align-items: center;
+        }
+
+        .actions a {
+            text-decoration: none;
+            padding: 5px 10px; /* Giảm padding */
+            border: none;
+            background-color: #1a4f78; /* Giống màu header */
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 14px; /* Giảm cỡ chữ */
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            line-height: 1; /* Cố định chiều cao */
+        }
+
+        .actions a.add-student {
+            background-color: #28a745; /* Màu xanh lá cây cho + Student */
+        }
+
+        .actions a.add-score {
+            background-color: #ffc107; /* Màu vàng cam cho + Score */
+            color: #333;
+        }
+
+        .actions a:hover {
+            filter: brightness(0.9); /* Làm tối khi hover */
+        }
+
+        /* Màu đặc biệt cho Grade */
+        td:nth-child(9) {
+            font-weight: bold;
+            color: #007bff; /* Màu xanh dương cho Grade */
+        }
+
+        /* Cột cuối cùng (Actions - Giả lập) */
+        td:last-child {
+            text-align: center;
+            width: 50px; /* Giới hạn chiều rộng */
+        }
+        .edit-icon {
+            text-decoration: none;
+            color: #1a4f78;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="header-system">Student Information System</div>
+<div class="main-content">
+    <h2>Student Infomation</h2>
+
+    <div class="actions">
+        <a th:href="@{/student/add}" class="add-student">+ Student</a>
+        <a th:href="@{/score/add}" class="add-score">+ Score</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Student Id</th>
+            <th>Student Name</th>
+            <th>Subject Name</th>
+            <th>Score 1</th>
+            <th>Score 2</th>
+            <th>Credit</th>
+            <th>Final Score</th>
+            <th>Grade</th>
+            <th></th> </tr>
+        </thead>
+        <tbody>
+        <tr th:each="score : ${scores}">
+            <td th:text="${score.studentScoreId}">1</td>
+            <td th:text="${score.student.studentCode}">2007A1</td>
+            <td th:text="${score.student.fullName}">Nguyen Van A</td>
+            <td th:text="${score.subject.subjectName}">JAVA</td>
+            <td th:text="${#numbers.formatDecimal(score.score1, 0, 1)}">8.0</td>
+            <td th:text="${#numbers.formatDecimal(score.score2, 0, 1)}">8.0</td>
+            <td th:text="${score.subject.credit}">3</td>
+            <td th:with="avgScore=${scoreService.calculateAvgScore(score.score1, score.score2)}" th:text="${#numbers.formatDecimal(avgScore, 0, 2)}">7.75</td>
+            <td th:with="avgScore=${scoreService.calculateAvgScore(score.score1, score.score2)}" th:text="${scoreService.convertToGrade(avgScore)}">A</td>
+            <td>
+                <a href="#" class="edit-icon">✏️</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div style="margin-top: 20px;">
+        <a th:href="@{/students}" style="text-decoration: none; padding: 8px 15px; background-color: #6c757d; color: white; border-radius: 4px; font-weight: 500;">Danh sách Sinh Viên</a>
+    </div>
+</div>
+</body>
+</html>

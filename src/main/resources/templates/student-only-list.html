@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh Sách Sinh Viên</title>
+    <style>
+        /* CSS cho Student Information System */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+
+        .header-system {
+            background-color: #28a745; /* Màu xanh lá cây tương tự mẫu */
+            color: white;
+            padding: 10px 40px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .main-content {
+            margin: 40px;
+        }
+
+        h2 {
+            color: #333;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-weight: bold;
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+
+        /* --- Bảng --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #e0e6ed;
+        }
+
+        th, td {
+            border: 1px solid #e0e6ed;
+            padding: 10px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #1a4f78;
+            color: white;
+            font-weight: normal;
+            text-transform: none;
+            font-size: 1em;
+        }
+
+        /* Hiệu ứng di chuột trên dòng */
+        tbody tr:hover {
+            background-color: #eaf4ff;
+        }
+
+        /* Cột cuối cùng (Address) */
+        td:nth-child(4) {
+            font-weight: 500;
+        }
+
+        /* Thao tác (Actions) - Đổi thành nút giống mẫu */
+        .actions {
+            margin-bottom: 20px;
+            padding: 0;
+            background-color: transparent;
+            border-radius: 0;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .actions a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border: none;
+            background-color: #1a4f78;
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .actions a.add-student {
+            background-color: #28a745; /* Màu xanh lá cây cho + Student */
+        }
+
+        .actions a.add-score {
+            background-color: #ffc107; /* Màu vàng cam cho + Score */
+            color: #333;
+        }
+
+        .actions a.back-to-scores {
+            background-color: #6c757d; /* Màu xám cho Trở về Bảng Điểm */
+        }
+
+        .actions a:hover {
+            filter: brightness(0.9);
+        }
+
+    </style>
+</head>
+<body>
+<div class="header-system">Student Information System</div>
+<div class="main-content">
+    <h2>🧑‍🎓 Danh Sách Sinh Viên</h2>
+
+    <div class="actions">
+        <a th:href="@{/student/add}" class="add-student">+ Thêm Sinh Viên</a>
+        <a th:href="@{/score/add}" class="add-score">+ Thêm Điểm</a>
+        <a th:href="@{/}" class="back-to-scores">Trở về Bảng Điểm</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Student Code</th>
+            <th>Full Name</th>
+            <th>Address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.studentId}">1</td>
+            <td th:text="${student.studentCode}">2007B20</td>
+            <td th:text="${student.fullName}">Nguyen Van B</td>
+            <td th:text="${student.address}">TP. HCM</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
